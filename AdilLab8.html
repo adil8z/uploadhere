@@ -1,0 +1,449 @@
+<html>
+
+<head>
+ <title>Dynamic Form</title>
+ <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+
+
+
+<style>
+.h1{
+align:center;
+}
+
+.row:after{
+content:"";
+clear:both;
+display:block;
+box-sizing:border-box;
+}
+
+
+.col-1{width:8.33%}
+.col-2{width:16.66%}
+.col-3{width:25%}
+.col-13{width:29.12%}
+.col-4{width:33.33%}
+.col-5{width:41.66%}
+.col-6{width:50%}
+.col-7{width:58.33%}
+.col-8{width:66.66%}
+.col-9{width:74%}
+.col-10{width:83.33%}
+.col-11{width:91.66%}
+.col-12{width:100%}
+
+#result {
+    margin: 10px;
+    background: #eee;
+    padding: 10px;
+    height: 40px;
+    overflow: auto;
+}
+
+
+#pos1{
+position:absolute;
+top:150px;
+left:100px;
+
+}
+
+
+#pos2{
+position:absolute;
+top:250px;
+left:100px;
+
+}
+
+
+#pos3{
+position:absolute;
+top:320px;
+left:100px;
+
+}
+#pos4{
+position:absolute;
+top:390px;
+left:100px;
+
+}
+
+#pos5{
+position:absolute;
+top:250px;
+left:250px;
+
+}
+
+#pos6{
+position:absolute;
+top:320px;
+left:250px;
+
+}
+
+#pos7{
+position:absolute;
+top:390px;
+left:250px;
+
+}
+
+
+.btn {
+  background: #292626;
+  background-image: -webkit-linear-gradient(top, #292626, #f5203c);
+  background-image: -moz-linear-gradient(top, #292626, #f5203c);
+  background-image: -ms-linear-gradient(top, #292626, #f5203c);
+  background-image: -o-linear-gradient(top, #292626, #f5203c);
+  background-image: linear-gradient(to bottom, #292626, #f5203c);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 13px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  height: 60px;
+   width: 100px;
+   z-index: 100;
+}
+
+
+#btn1 {
+  background: #292626;
+  background-image: -webkit-linear-gradient(top, #292626, #f5203c);
+  background-image: -moz-linear-gradient(top, #292626, #f5203c);
+  background-image: -ms-linear-gradient(top, #292626, #f5203c);
+  background-image: -o-linear-gradient(top, #292626, #f5203c);
+  background-image: linear-gradient(to bottom, #292626, #f5203c);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 13px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  height: 60px;
+   width: 160px;
+   z-index: 170;
+}
+
+
+</style>
+
+
+<body background="back.jpg">
+<h1>Dynamic Form </h1>
+
+
+<div id="pos1">
+<button type="button" id="btn1" onClick="FormCreate()" >Create Form</button>
+</div>
+
+	
+		<div id="pos2">
+			<button type="button" class="btn" onClick="username()" >Create name field</button><hr>
+		</div>
+		
+		
+		<div id="pos3">
+			<button type="button" class="btn" onClick="password()" >Create password field</button><hr>
+		</div>
+		
+		<div id="pos4">
+			<button type="button" class="btn" onClick="select()" >Create Select field</button><hr>
+		</div>
+		
+		
+		<div id="pos5">
+			<button type="button" class="btn" onClick="ugen()" >Create Radio</button>
+			</div>
+			
+			<div id="pos6">
+			<button type="button" class="btn" onClick="uphoneno()" >Create Number text field</button>
+			</div>
+			
+			
+			<div id="pos7">
+			<button type="button" class="btn" onClick="uaddrs()" >Create Text Area Field</button>
+		</div>
+
+
+
+</body>
+<script>
+function FormCreate(){
+		
+		var f = document.createElement("form");
+		f.setAttribute('method',"post");
+		f.setAttribute('action',"");
+
+		
+		
+		
+
+		var s = document.createElement("input"); 
+		s.setAttribute('type',"submit");
+		s.setAttribute('value',"Submit");
+
+		
+		f.appendChild(s);
+		document.getElementsByTagName('body')[0].appendChild(f);
+
+
+		
+	
+	}
+	
+	$(function() {
+    $('form').submit(function() {
+	
+	
+x=document.getElementById("username");
+		y=document.getElementById("password");
+		
+		if(x){
+			var valid=validateusername();
+			alert(valid);
+			if(valid==true){
+				usernametext=$("#username").val();
+				console.log(usernametext);
+			}	
+		
+		}
+		if(y){
+			var valid=validatepassword();
+			if(valid==true){
+				passwordtext=$("#password").val();
+				console.log(passwordtext);
+				}
+		
+		}
+	
+		
+	
+	
+
+        $('#result').text(JSON.stringify($('form').serializeObject()));
+        return false;
+    });
+});
+
+
+	function username() {
+		
+		var i = document.createElement("input"); 
+		var label1 = document.createElement("Label");
+		var node = document.createTextNode("Name: ");
+		i.setAttribute('type',"text");
+		i.setAttribute('name',"username");
+		i.setAttribute('id','user');
+		i.setAttribute('minlength',"0");
+		i.setAttribute('maxlength',"5");
+		
+				
+		label1.setAttribute('for','user');
+		label1.appendChild(node);
+		
+		document.getElementsByTagName('form')[0].appendChild(label1);
+		document.getElementsByTagName('form')[0].appendChild(i);
+		
+		
+		if(form.username.value == "") {
+      alert("Error: Input is empty!");
+  
+    }
+
+		
+		
+		
+		
+		
+	
+	}
+	
+	function password() {
+		
+		var j = document.createElement("input"); 
+		var label2 = document.createElement("Label");
+		var node1 = document.createTextNode("Password: ");
+		j.setAttribute('type',"password");
+		j.setAttribute('name',"password");
+		j.setAttribute('id','pass');
+		j.setAttribute('minlength',"0");
+		j.setAttribute('maxlength',"5");
+		label2.setAttribute('for','pass');
+		label2.appendChild(node1);
+		
+		document.getElementsByTagName('form')[0].appendChild(label2);
+		document.getElementsByTagName('form')[0].appendChild(j);
+	
+	}
+	
+	function select() {
+		
+		
+	var array = ["option1","option2","option3"];
+
+	//Create and append select list
+	var selectList = document.createElement("select");
+	var label3 = document.createElement("Label");
+		var node2 = document.createTextNode("Select: ");
+		selectList.setAttribute('id','select');
+	label3.setAttribute('for','select');
+		label3.appendChild(node2);
+		
+		
+	
+
+	
+	for (var i = 0; i < array.length; i++) {
+    var option = document.createElement("option");
+    option.value = array[i];
+    option.text = array[i];
+    selectList.appendChild(option);
+}
+		
+		document.getElementsByTagName('form')[0].appendChild(label3);
+		document.getElementsByTagName('form')[0].appendChild(selectList);
+	
+	}
+	
+	
+	
+	
+		function uphoneno() {
+		phoneno = document.createElement("input"); //input element, text
+		var label = document.createElement("LABEL");
+		var tn = document.createTextNode("Phone no: +92");
+		phoneno.setAttribute('type',"number");
+		phoneno.setAttribute('name',"un");	
+		phoneno.setAttribute('id',"un");
+		phoneno.setAttribute('min',"9");
+		phoneno.setAttribute('max',"10");
+		label.setAttribute("for", "un");
+		label.appendChild(tn);
+		document.getElementsByTagName('form')[0].insertBefore(label,document.getElementById("un"));
+		document.getElementsByTagName('form')[0].appendChild(phoneno);
+	}
+	
+	function ugen() {
+		gender = document.createElement("input"); //input element, text
+		var label = document.createElement("LABEL");
+		var tn = document.createTextNode("Options: ");
+		label.appendChild(tn);
+		
+		var label2 = document.createElement("LABEL");
+		document.getElementsByTagName('form')[0].insertBefore(label,document.getElementById("gender"));
+		
+		var label1 = document.createElement("LABEL");
+		gender.setAttribute('type',"radio");
+		gender.setAttribute('name',"radio1");	
+		gender.setAttribute('id',"radio1");
+		gender.setAttribute('value',"male");
+		label1.appendChild(gender);
+		label1.appendChild(document.createTextNode("option..1"));
+		document.getElementsByTagName('form')[0].appendChild(label1);
+		
+		gender1 = document.createElement("input"); //input element, text
+		var label2 = document.createElement("LABEL");
+		gender1.setAttribute('type',"radio");
+		gender1.setAttribute('name',"radio1");	
+		gender1.setAttribute('id',"radio1");
+		gender1.setAttribute('value',"female");
+		label2.appendChild(gender1);
+		label2.appendChild(document.createTextNode("option..2"));
+		document.getElementsByTagName('form')[0].appendChild(label2);
+	}
+	
+		function uaddrs() {
+		address = document.createElement("textarea"); //input element, text
+		var label = document.createElement("LABEL");
+		var tn = document.createTextNode("Textarea: ");
+		address.setAttribute('rows',"3");
+		address.setAttribute('name',"un");	
+		address.setAttribute('id',"un");
+		label.setAttribute("for", "un");
+		label.appendChild(tn);
+		document.getElementsByTagName('form')[0].insertBefore(label,document.getElementById("un"));
+		document.getElementsByTagName('form')[0].appendChild(address);
+	}
+	
+	
+	
+
+function validateusername() {
+	var letterNumber = /^[0-9]+$/;
+    var x = $("#username").val();
+	alert(x);
+	if (x.length>=maxusername){
+		 alert("usernname greater than maximum length");
+		return false;
+	}
+	if(validusername.match("no")){
+		if (x.match(letterNumber)) {
+        alert("Name must be filled out properly alphabets only");
+		return false;
+    }
+	else{
+		return true;
+		}
+	
+	}
+    
+	
+}
+
+function validateusername() {
+	var letterNumber = /^[0-9]+$/;
+    var x = $("#username").val();
+	alert(x);
+	if (x.length>=maxusername){
+		 alert("usernname greater than maximum length");
+		return false;
+	}
+	if(validusername.match("no")){
+		if (x.match(letterNumber)) {
+        alert("Name must be filled out properly alphabets only");
+		return false;
+    }
+	else{
+		return true;
+		}
+	
+	}
+    
+	
+}
+function validatepassword() {
+	alert(passwordlength);
+    var x = $("#password").val();
+	alert(x);
+    if (x.length>=passwordlength) {
+        alert("password greater than limit");
+		return false;
+    }
+	else{
+		return true;
+		}
+}
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	</script>
+</html>
